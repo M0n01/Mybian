@@ -16,7 +16,7 @@ if ! command -v ansible &> /dev/null; then
     sudo apt update && sudo apt install -y ansible
 fi
 
-cd ansible-config || exit 1
+cd ansible-config/playbooks || exit 1
 
 # Vérifier si la machine est en unstable
 if ! is_unstable; then
