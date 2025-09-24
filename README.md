@@ -6,4 +6,5 @@ Scripts and Ansible playbook to setup my debian sid
 - Fix l'install de discord, brave, vscodium et obsidian
 - Setup GEF pour GDB
 - Ajouter fonds d'écran.
-- Désinstaller les jeux KDE
+- Installation QEMU + KVM + Virtmanager
+- Setup VM (dossier de partage, coper/coller etc)

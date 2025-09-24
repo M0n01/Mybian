@@ -1,8 +1,8 @@
 ---
+- name: Désinstaller des logiciels KDE
+  include_tasks: uninstall.yml
+  tags: uninstall
+
 - name: Installer les paquets du profil choisi
   include_tasks: install.yml
   tags: install
-
-# - name: Désinstaller les jeux KDE
-#   include_tasks: uninstall.yml
-#   tags: uninstall

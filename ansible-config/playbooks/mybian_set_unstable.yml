@@ -5,6 +5,9 @@
   gather_facts: yes
 
   tasks:
+    - name: Désinstaller les paquets inutiles
+      include_tasks: roles/packages/tasks/uninstall.yml
+
     - name: Passer en unstable
       include_tasks: roles/packages/tasks/unstable.yml
 

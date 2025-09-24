@@ -2,8 +2,8 @@
 
 # Fonction pour détecter la version Debian
 is_unstable() {
-    codename=$(lsb_release -c -s)
-    if [[ "$codename" == "sid" ]]; then
+    codename=$(cat /etc/debian_version)
+    if [[ "$codename" == *"sid"* ]]; then
         return 0    # true
     else
         return 1    # false
@@ -26,5 +26,5 @@ if ! is_unstable; then
     sudo reboot
 else
     echo "Machine déjà en unstable. Lancement du playbook normal..."
-    sudo ansible-playbook -i localhost, -c local playbook.yml
+    sudo ansible-playbook -i localhost, -c local mybian.yml
 fi
