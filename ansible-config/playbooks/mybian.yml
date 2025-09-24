@@ -1,0 +1,25 @@
+---
+- name: Basculer la machine en Debian unstable
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  vars:
+    enable_unstable: false   # valeur par défaut
+
+  tasks:
+    - name: Passer en unstable si demandé
+      include_tasks: roles/packages/tasks/unstable.yml
+      when: enable_unstable == true
+    
+    - name: Stopper le playbook après la bascule en unstable
+      meta: end_play
+      when: enable_unstable == true
+
+- name: Installer et configurer les rôles normaux
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  roles:
+    - packages
+    - zsh
+    # autres rôles ici

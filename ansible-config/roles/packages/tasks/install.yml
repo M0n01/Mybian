@@ -1,0 +1,81 @@
+---
+- name: Mettre à jour le cache APT
+  apt:
+    update_cache: yes
+  become: true
+
+# Logiciels disponibles dans les dépôts Debian
+- name: Installer les paquets Debian
+  apt:
+    name:
+      - curl
+      - git
+      - vim
+      - kate
+      - firefox-esr
+      - gdb
+      - nheko
+      - nmap
+      - wireshark
+      - btop
+      - tcpdump
+      - net-tools
+      - fastfetch
+      - vlc
+      - gimp
+      - audacity
+    state: present
+  become: true
+
+# Brave (dépôt externe)
+- name: Ajouter la clé GPG Brave
+  apt_key:
+    url: https://brave-browser-archive.mozilla.org/brave-core.asc
+    state: present
+  become: true
+
+- name: Ajouter le dépôt Brave
+  apt_repository:
+    repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    state: present
+  become: true
+
+- name: Installer Brave
+  apt:
+    name: brave-browser
+    state: present
+  become: true
+
+# # VSCodium
+# - name: Télécharger VSCodium
+#   get_url:
+#     url: "https://github.com/VSCodium/vscodium/releases/download/1.80.1.22245/codium_1.80.1.22245_amd64.deb"
+#     dest: /tmp/codium.deb
+
+# - name: Installer VSCodium
+#   apt:
+#     deb: /tmp/codium.deb
+#   become: true
+
+# # Obsidian
+# - name: Télécharger Obsidian
+#   get_url:
+#     url: "https://github.com/obsidianmd/obsidian-releases/releases/download/1.1.19/Obsidian-1.1.19.deb"
+#     dest: /tmp/obsidian.deb
+
+# - name: Installer Obsidian
+#   apt:
+#     deb: /tmp/obsidian.deb
+#   become: true
+
+# Discord
+- name: Télécharger Discord
+  get_url:
+    url: "https://discord.com/api/download?platform=linux&format=deb"
+    dest: /tmp/discord.deb
+
+- name: Installer Discord
+  apt:
+    deb: /tmp/discord.deb
+  become: true
+

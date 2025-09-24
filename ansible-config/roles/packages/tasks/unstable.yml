@@ -1,0 +1,22 @@
+---
+- name: Sauvegarder sources.list actuels
+  copy:
+    src: /etc/apt/sources.list
+    dest: /etc/apt/sources.list.backup
+    remote_src: yes
+  become: true
+
+- name: Configurer sources.list pour Debian unstable
+  copy:
+    dest: /etc/apt/sources.list
+    content: |
+      deb http://deb.debian.org/debian unstable main contrib non-free non-free-firmware
+      deb-src http://deb.debian.org/debian unstable main contrib non-free non-free-firmware
+  become: true
+
+- name: Mettre à jour le cache APT et upgrader la machine
+  apt:
+    update_cache: yes
+    upgrade: dist
+  become: true
+
