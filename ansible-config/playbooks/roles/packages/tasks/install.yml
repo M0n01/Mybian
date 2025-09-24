@@ -24,6 +24,9 @@
       - vlc
       - gimp
       - audacity
+      - keepassxc
+      - thunderbird
+      - zsh
     state: present
   become: true
 
