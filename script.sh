@@ -21,7 +21,7 @@ cd ansible-config/playbooks || exit 1
 # Vérifier si la machine est en unstable
 if ! is_unstable; then
     echo "Machine en stable. Lancement du playbook avec bascule en unstable..."
-    sudo ansible-playbook -i localhost, -c local mybian.yml -e enable_unstable=true
+    sudo ansible-playbook -i localhost, -c local mybian_set_unstable.yml
     echo "Redémarrage du système pour appliquer la bascule en unstable..."
     sudo reboot
 else

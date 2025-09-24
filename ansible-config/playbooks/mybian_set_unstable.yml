@@ -1,0 +1,13 @@
+---
+- name: Basculer la machine en Debian unstable
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Passer en unstable
+      include_tasks: roles/packages/tasks/unstable.yml
+    
+    - name: Stopper le playbook après la bascule en unstable
+      meta: end_play
+
