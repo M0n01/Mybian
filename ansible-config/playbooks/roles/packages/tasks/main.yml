@@ -1,7 +1,8 @@
 ---
-- name: Passer en unstable si demandé
-  include_tasks: unstable.yml
-  when: enable_unstable
-
 - name: Installer les paquets du profil choisi
   include_tasks: install.yml
+  tags: install
+
+- name: Désinstaller les jeux KDE
+  include_tasks: uninstall.yml
+  tags: uninstall

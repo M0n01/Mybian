@@ -1,0 +1,16 @@
+---
+# Désinstaller tous les jeux KDE installés
+- name: Lister les paquets KDE jeux installés
+  ansible.builtin.shell: "dpkg-query -W -f='${Package}\n' '*kde-games*' '*kdegames*'"
+  register: kde_games_installed
+  changed_when: false
+
+- name: Afficher les paquets à désinstaller
+  ansible.builtin.debug:
+    msg: "{{ kde_games_installed.stdout_lines }}"
+
+- name: Désinstaller les jeux KDE
+  ansible.builtin.apt:
+    name: "{{ kde_games_installed.stdout_lines }}"
+    state: absent
+  when: kde_games_installed.stdout_lines | length > 0
