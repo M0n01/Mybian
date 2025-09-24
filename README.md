@@ -9,3 +9,4 @@ Scripts and Ansible playbook to setup my debian sid
 - Installation QEMU + KVM + Virtmanager
 - Setup VM (dossier de partage, coper/coller etc)
 - setup venv python
+- Ajouter un autoremove à la toute fin

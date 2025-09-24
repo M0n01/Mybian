@@ -15,8 +15,3 @@
       - kmousetool
     state: absent
     purge: yes
-
-- name: Nettoyer les dépendances inutiles
-  apt:
-    autoremove: yes
-    purge: yes
