@@ -3,6 +3,6 @@
   include_tasks: install.yml
   tags: install
 
-- name: Désinstaller les jeux KDE
-  include_tasks: uninstall.yml
-  tags: uninstall
+# - name: Désinstaller les jeux KDE
+#   include_tasks: uninstall.yml
+#   tags: uninstall

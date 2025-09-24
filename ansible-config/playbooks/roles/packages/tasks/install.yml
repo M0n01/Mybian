@@ -68,14 +68,14 @@
 #     deb: /tmp/obsidian.deb
 #   become: true
 
-# Discord
-- name: Télécharger Discord
-  get_url:
-    url: "https://discord.com/api/download?platform=linux&format=deb"
-    dest: /tmp/discord.deb
+# # Discord
+# - name: Télécharger Discord
+#   get_url:
+#     url: "https://discord.com/api/download?platform=linux&format=deb"
+#     dest: /tmp/discord.deb
 
-- name: Installer Discord
-  apt:
-    deb: /tmp/discord.deb
-  become: true
+# - name: Installer Discord
+#   apt:
+#     deb: /tmp/discord.deb
+#   become: true
 
