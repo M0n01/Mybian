@@ -6,3 +6,7 @@
 - name: Installer les paquets du profil choisi
   include_tasks: install.yml
   tags: install
+
+- name: Install pacakages from outside debian's repos 
+  include_tasks: install-non_deb.yml
+  tags: install-non_deb

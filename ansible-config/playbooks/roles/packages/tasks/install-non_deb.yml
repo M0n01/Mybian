@@ -1,0 +1,101 @@
+---
+- name: Install Brave if non already installed 
+  block:
+    - name: Check if Brave is already installed
+      ansible.builtin.stat:
+        path: '/usr/bin/brave-browser'
+      register: brave_installed
+
+    - name: Install Brave
+      ansible.builtin.shell: "curl -fsS https://dl.brave.com/install.sh | sh"
+      args:
+        warn: false
+
+
+- name: Install Discord if non already installed 
+  block:
+    - name: Check if Discord is already installed
+      ansible.builtin.stat:
+        path: '/usr/bin/discord'
+      register: discord_installed
+
+    - name: Download Discord
+      ansible.builtin.get_url:
+        url: 'https://discord.com/api/download?platform=linux&format=deb'
+        dest: '/tmp/discord-setup.deb'
+      when: not discord_installed.stat.exists
+
+    - name: Install Discord
+      ansible.builtin.apt:
+        deb: '/tmp/discord-setup.deb'
+        state: present
+      become: true
+      when: not discord_installed.stat.exists
+
+    - name: Delete install files
+      ansible.builtin.file:
+        path: '/tmp/discord-setup.deb'
+        state: absent
+      when: not discord_installed.stat.exists
+
+
+- name: Install VSCodium if non already installed 
+  block:
+    - name: Check if Codium is already installed
+      ansible.builtin.stat:
+        path: '/usr/bin/codium'
+      register: codium_installed
+
+    - name: Télécharger le dernier .deb VSCodium (amd64) dans /tmp/
+      ansible.builtin.shell: |
+        curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest \
+        | grep browser_download_url \
+        | cut -d '"' -f 4 \
+        | grep 'amd64.deb' \
+        | wget -O /tmp/vscodium.deb -i -
+      args:
+        warn: false
+
+    - name: Install Codium
+      ansible.builtin.apt:
+        deb: '/tmp/vscodium.deb'
+        state: present
+      become: true
+      when: not codium_installed.stat.exists
+
+    - name: Delete install files
+      ansible.builtin.file:
+        path: '/tmp/vscodium.deb'
+        state: absent
+      when: not codium_installed.stat.exists
+
+
+- name: Télécharger et installer Obsidian (dernière version .deb)
+  hosts: localhost
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check if Obsidian is already installed
+      ansible.builtin.stat:
+        path: '/usr/bin/obsidian'
+      register: codium_installed
+
+    - name: Télécharger le dernier .deb Obsidian (amd64) dans /tmp/
+      ansible.builtin.shell: |
+        curl -s https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest \
+        | grep browser_download_url \
+        | cut -d '"' -f 4 \
+        | grep 'amd64.deb' \
+        | wget -O /tmp/obsidian.deb -i -
+      args:
+        warn: false
+
+    - name: Installer Obsidian via le .deb
+      ansible.builtin.apt:
+        deb: /tmp/obsidian.deb
+        state: present
+
+    - name: Supprimer le fichier /tmp/obsidian.deb après installation
+      ansible.builtin.file:
+        path: /tmp/obsidian.deb
+        state: absent

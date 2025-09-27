@@ -12,7 +12,11 @@
       - git
       - vim
       - kate
+      - python3
+      - tree
+      - traceroute
       - firefox-esr
+      - binwalk
       - gdb
       - nheko
       - nmap
@@ -30,12 +34,11 @@
     state: present
   become: true
 
-# # Brave (dépôt externe)
-# - name: Ajouter la clé GPG Brave
-#   apt_key:
-#     url: https://brave-browser-archive.mozilla.org/brave-core.asc
-#     state: present
-#   become: true
+# Brave (dépôt externe)
+- name: Installer Brave avec curl et sh
+  ansible.builtin.shell: "curl -fsS https://dl.brave.com/install.sh | sh"
+  args:
+    warn: false
 
 # - name: Ajouter le dépôt Brave
 #   apt_repository:
