@@ -12,5 +12,6 @@
   hosts: localhost
   become: yes
   gather_facts: yes
-  role: debianSid
+  roles: 
+    - debianSid
   tags: unstable
