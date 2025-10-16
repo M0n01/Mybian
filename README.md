@@ -16,7 +16,7 @@ Scripts and Ansible playbook to setup my debian sid
 - regarder comment faire un UI sympas (un peu comme exegol) dans le terminal.
 
 
-## Rules
+## Rules
 
 From now on, ALL IN ENGLISH.
 
