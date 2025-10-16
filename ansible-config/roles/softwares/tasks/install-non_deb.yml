@@ -101,6 +101,11 @@
 
 
 # Docker
+- name: Check if Docker is already installed
+  ansible.builtin.stat:
+    path: '/usr/bin/docker'
+  register: docker_installed
+
 - name: Configure Docker's repository
   block:
     - name: Créer le répertoire pour les clés GPG Docker
@@ -127,3 +132,15 @@
         filename: docker
         update_cache: yes
       become: true
+
+    - name: Install Docker packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+      become: true
+  when: not docker_installed.stat.exists
