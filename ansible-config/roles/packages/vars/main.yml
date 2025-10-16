@@ -1,0 +1,39 @@
+---
+to_install:
+  - curl
+  - git
+  - vim
+  - kate
+  - python3
+  - tree
+  - traceroute
+  - firefox-esr
+  - binwalk
+  - gdb
+  - nheko
+  - nmap
+  - wireshark
+  - btop
+  - tcpdump
+  - net-tools
+  - fastfetch
+  - vlc
+  - gimp
+  - audacity
+  - keepassxc
+  - thunderbird
+  - zsh
+
+
+to_remove:
+  - korganizer
+  - dragonplayer
+  - juk
+  - kaddressbook
+  - kmail
+  - kmailtransport-plugins
+  - pim-sieve-editor
+  - pim-data-exporter
+  - kwrite
+  - kmouth
+  - kmousetool

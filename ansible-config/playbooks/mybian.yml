@@ -1,9 +1,0 @@
----
-- name: Installer et configurer
-  hosts: localhost
-  become: yes
-  gather_facts: yes
-  roles:
-    - packages
-    - zsh
-    # autres rôles ici

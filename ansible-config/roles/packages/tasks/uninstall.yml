@@ -1,0 +1,6 @@
+---
+- name: Désinstaller plusieurs paquets APT
+  apt:
+    name: "{{ to_remove }}"
+    state: absent
+    purge: yes

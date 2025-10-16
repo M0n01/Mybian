@@ -1,0 +1,8 @@
+---
+- name: Create file .vimrc
+  copy:
+    src: .vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: '0644'

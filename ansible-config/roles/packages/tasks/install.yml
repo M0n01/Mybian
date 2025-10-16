@@ -1,0 +1,13 @@
+---
+- name: Mettre à jour le cache APT
+  apt:
+    update_cache: yes
+  become: true
+
+# Logiciels disponibles dans les dépôts Debian
+- name: Install Debian packages
+  apt:
+    name: "{{ to_install }}"
+    state: present
+  become: true
+

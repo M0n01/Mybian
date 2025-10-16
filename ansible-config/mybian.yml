@@ -1,0 +1,16 @@
+---
+- name: Install and configure =)
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  roles:
+    - packages
+    - zsh
+  tags: base
+
+- name: Configure Debian Sid
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  role: debianSid
+  tags: unstable

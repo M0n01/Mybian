@@ -1,9 +1,9 @@
 ---
-- name: Désinstaller des logiciels KDE
+- name: Remove some KDE softwares
   include_tasks: uninstall.yml
   tags: uninstall
 
-- name: Installer les paquets du profil choisi
+- name: Install base packages
   include_tasks: install.yml
   tags: install
 

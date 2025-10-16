@@ -1,4 +1,13 @@
 ---
+- name: From stable to unstable
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Uninstall useless (sry KDE) packages
+      include_tasks: roles/packages/tasks/uninstall.yml
+
 - name: Sauvegarder sources.list actuels
   copy:
     src: /etc/apt/sources.list
@@ -19,4 +28,3 @@
     update_cache: yes
     upgrade: dist
   become: true
-
