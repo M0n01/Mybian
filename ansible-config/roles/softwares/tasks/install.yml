@@ -11,3 +11,7 @@
     state: present
   become: true
 
+- name: Clean APT cache
+  ansible.builtin.apt:
+    autoclean: yes
+  become: true

@@ -10,42 +10,43 @@
       ansible.builtin.shell: "curl -fsS https://dl.brave.com/install.sh | sh"
       args:
         warn: false
+      when: not discord_installed.stat.exists
 
+
+# Discord
+- name: Check if Discord is already installed
+  ansible.builtin.stat:
+    path: '/usr/bin/discord'
+  register: discord_installed
 
 - name: Install Discord if non already installed 
   block:
-    - name: Check if Discord is already installed
-      ansible.builtin.stat:
-        path: '/usr/bin/discord'
-      register: discord_installed
-
     - name: Download Discord
       ansible.builtin.get_url:
         url: 'https://discord.com/api/download?platform=linux&format=deb'
         dest: '/tmp/discord-setup.deb'
-      when: not discord_installed.stat.exists
 
     - name: Install Discord
       ansible.builtin.apt:
         deb: '/tmp/discord-setup.deb'
         state: present
       become: true
-      when: not discord_installed.stat.exists
 
     - name: Delete install files
       ansible.builtin.file:
         path: '/tmp/discord-setup.deb'
         state: absent
-      when: not discord_installed.stat.exists
+  when: not discord_installed.stat.exists
 
+
+# VSCodium
+- name: Check if Codium is already installed
+  ansible.builtin.stat:
+    path: '/usr/bin/codium'
+  register: codium_installed
 
 - name: Install VSCodium if non already installed 
   block:
-    - name: Check if Codium is already installed
-      ansible.builtin.stat:
-        path: '/usr/bin/codium'
-      register: codium_installed
-
     - name: Télécharger le dernier .deb VSCodium (amd64) dans /tmp/
       ansible.builtin.shell: |
         curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest \
@@ -61,25 +62,22 @@
         deb: '/tmp/vscodium.deb'
         state: present
       become: true
-      when: not codium_installed.stat.exists
 
     - name: Delete install files
       ansible.builtin.file:
         path: '/tmp/vscodium.deb'
         state: absent
-      when: not codium_installed.stat.exists
+  when: not codium_installed.stat.exists
 
+
+# Obsidian
+- name: Check if Obsidian is already installed
+  ansible.builtin.stat:
+    path: '/usr/bin/obsidian'
+  register: obidian_installed
 
 - name: Télécharger et installer Obsidian (dernière version .deb)
-  hosts: localhost
-  become: true
-  gather_facts: false
-  tasks:
-    - name: Check if Obsidian is already installed
-      ansible.builtin.stat:
-        path: '/usr/bin/obsidian'
-      register: codium_installed
-
+  block:
     - name: Télécharger le dernier .deb Obsidian (amd64) dans /tmp/
       ansible.builtin.shell: |
         curl -s https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest \
@@ -99,3 +97,33 @@
       ansible.builtin.file:
         path: /tmp/obsidian.deb
         state: absent
+  when: not obsidian_installed.stat.exists
+
+
+# Docker
+- name: Configure Docker's repository
+  block:
+    - name: Créer le répertoire pour les clés GPG Docker
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      become: true
+
+    - name: Télécharger la clé GPG officielle de Docker
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/debian/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+      become: true
+
+    - name: Ajouter le dépôt Docker à APT
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc]
+          https://download.docker.com/linux/debian
+          trixie stable
+        state: present
+        filename: docker
+        update_cache: yes
+      become: true

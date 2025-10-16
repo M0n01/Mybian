@@ -1,0 +1,10 @@
+---
+- name: Clean APT cache
+  ansible.builtin.apt:
+    autoclean: yes
+  become: true
+
+- name: Add pipx to PATH
+  ansible.builtin.command: pipx ensurepath
+  become_user: "{{ ansible_env.USER }}"
+

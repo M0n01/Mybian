@@ -6,7 +6,7 @@
 
   tasks:
     - name: Uninstall useless (sry KDE) packages
-      include_tasks: roles/packages/tasks/uninstall.yml
+      include_tasks: roles/softwares/tasks/uninstall.yml
 
 - name: Sauvegarder sources.list actuels
   copy:

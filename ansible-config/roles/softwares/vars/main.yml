@@ -1,8 +1,10 @@
 ---
 to_install:
   - curl
+  - ca-certificates
   - git
-  - vim
+  - neovim
+  - python3-neovim
   - kate
   - python3
   - tree
