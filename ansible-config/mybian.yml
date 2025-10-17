@@ -6,6 +6,8 @@
   roles:
     - softwares
     - zsh
+    - neovim
+    - virtualization 
   tags: base
 
 - name: Configure Debian Sid

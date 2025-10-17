@@ -10,3 +10,13 @@
 - name: Install pacakages from outside debian's repos 
   include_tasks: install-non_deb.yml
   tags: install-non_deb
+
+- name: Clean APT cache
+  ansible.builtin.apt:
+    autoclean: yes
+  become: true
+
+- name: Remove useless packages
+  ansible.builtin.apt:
+    autoremove: yes
+  become: true

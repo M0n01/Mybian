@@ -1,2 +1,17 @@
 ---
+- name: Create neovim directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: '0644'
 
+- name: Install init.lua file
+  copy:
+    src: init.lua
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: '0644'
+    backup: yes
